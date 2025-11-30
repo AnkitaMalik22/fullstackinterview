@@ -24,6 +24,8 @@ const ApiResilienceDemo = lazyImport(() => import('./components/ApiResilienceDem
 const BackendDemo = lazyImport(() => import('./components/BackendDemo'), 'BackendDemo');
 const DataStructuresDemo = lazyImport(() => import('./components/DataStructuresDemo'), 'DataStructuresDemo');
 const AlgorithmsDemo = lazyImport(() => import('./components/AlgorithmsDemo'), 'AlgorithmsDemo');
+const BackendSystemDesign = lazyImport(() => import('./components/BackendSystemDesign'), 'BackendSystemDesign');
+const FrontendDSADemo = lazyImport(() => import('./components/FrontendDSADemo'), 'FrontendDSADemo');
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
@@ -74,6 +76,14 @@ const App: React.FC = () => {
         return <DataStructuresDemo isLearnMode={isLearnMode} />;
       case ViewState.DSA_ALGORITHMS:
         return <AlgorithmsDemo isLearnMode={isLearnMode} />;
+
+      // Backend System Design (Caching, Queues, Load Balancing, etc.)
+      case ViewState.BACKEND_SYSDESIGN:
+        return <BackendSystemDesign />;
+
+      // Frontend-Specific DSA (Virtual DOM, Event Loop, etc.)
+      case ViewState.FRONTEND_DSA:
+        return <FrontendDSADemo />;
 
       case ViewState.AI_COACH:
         return <InterviewCoach />;

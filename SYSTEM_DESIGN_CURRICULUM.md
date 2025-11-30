@@ -1,0 +1,307 @@
+# System Design Curriculum - Implementation Tracker
+
+## Overview
+Comprehensive system design curriculum for the interview prep platform. Each topic includes interactive visualizations and theory content.
+
+---
+
+## 📚 Modules
+
+### 1. Foundations of System Design
+- [x] **Understanding System Design** (9 mins) ✅ DONE
+  - Definition and importance
+  - Types: HLD vs LLD
+  - Interview expectations
+- [x] **The System Design Framework** (17 mins) ✅ DONE
+  - RESHADED approach
+  - Requirement gathering
+  - Back-of-envelope calculations
+- [x] **Qualities of Well-Designed Systems** (9 mins) ✅ DONE
+  - NFRs: Scalability, Availability, Reliability
+  - Trade-offs discussion
+  - CAP theorem basics
+
+---
+
+### 2. Database Fundamentals
+- [x] **SQL & Relational Databases** (20 mins) ✅ DONE
+  - Normalization (1NF, 2NF, 3NF) - Already implemented
+  - ACID properties
+  - Indexing strategies
+- [x] **Transaction Isolation Levels** (19 mins) ✅ DONE
+  - Read Uncommitted, Read Committed
+  - Repeatable Read, Serializable
+  - Phantom reads, dirty reads visualization
+- [ ] **Database Scaling Strategies** (18 mins)
+  - Vertical vs Horizontal scaling
+  - Read replicas
+  - Master-slave architecture
+- [ ] **Sharding & Partitioning Techniques** (16 mins)
+  - Horizontal vs Vertical partitioning
+  - Sharding strategies (hash, range, geo)
+  - Resharding challenges
+- [ ] **NoSQL Database Types** (15 mins)
+  - Document stores (MongoDB)
+  - Key-Value (Redis, DynamoDB)
+  - Column-family (Cassandra)
+  - Graph databases (Neo4j)
+- [ ] **Choosing the Right Database** (13 mins)
+  - Decision matrix
+  - Use case mapping
+  - Polyglot persistence
+
+---
+
+### 3. Caching Fundamentals
+- [x] **How Caching Works** (12 mins) ✅ DONE
+  - Cache-aside, Write-through, Write-back - Already implemented
+  - Cache hit/miss
+  - TTL and eviction policies (LRU, LFU)
+- [ ] **Scaling & Populating Caches** (11 mins)
+  - Cache warming strategies
+  - Distributed caching
+  - Cache clusters (Redis Cluster)
+- [ ] **Multi-Layer Caching Architecture** (19 mins)
+  - Browser cache
+  - CDN caching
+  - Application cache
+  - Database query cache
+
+---
+
+### 4. Asynchronous Communication
+- [x] **Message Queue Fundamentals** (16 mins) ✅ DONE
+  - Work queues, Fan-out - Already implemented
+  - Queue patterns
+  - Dead letter queues
+- [ ] **Event Streaming with Kafka** (23 mins)
+  - Topics, Partitions, Consumer Groups
+  - Offset management
+  - Exactly-once semantics
+  - Kafka vs traditional MQ
+- [ ] **Real-time Communication Patterns** (6 mins)
+  - WebSockets
+  - Server-Sent Events
+  - Long Polling
+  - PubSub patterns
+
+---
+
+### 5. System Resiliency
+- [x] **Load Balancer Deep Dive** (16 mins) ✅ DONE
+  - Round-robin, Least-conn, Weighted - Already implemented
+  - L4 vs L7 load balancing
+  - Health checks
+- [ ] **Circuit Breaker Pattern** (13 mins)
+  - States: Closed, Open, Half-Open
+  - Failure thresholds
+  - Fallback strategies
+  - Bulkhead pattern
+- [ ] **Data Backup & Recovery** (9 mins)
+  - Replication strategies
+  - Backup approaches
+  - RPO and RTO
+  - Disaster recovery
+- [ ] **Consensus & Leader Election** (8 mins)
+  - Raft consensus
+  - Zookeeper/etcd
+  - Split-brain problem
+
+---
+
+### 6. Distributed Systems Concepts
+- [ ] **Bloom Filters Explained** (21 mins)
+  - Probabilistic data structure
+  - False positives explained
+  - Use cases (spell check, cache)
+  - Interactive visualization
+- [x] **Consistent Hashing Deep Dive** (27 mins) ✅ DONE
+  - Hash ring visualization - Already implemented
+  - Virtual nodes
+  - Adding/removing nodes
+- [ ] **Network Protocols & APIs** (22 mins)
+  - HTTP/1.1 vs HTTP/2 vs HTTP/3
+  - gRPC and Protocol Buffers
+  - WebSockets vs Long Polling
+  - GraphQL vs REST
+- [ ] **Object Storage & CDN** (16 mins)
+  - Blob storage concepts
+  - Presigned URLs
+  - Multipart uploads
+  - CDN edge caching
+- [ ] **Big Data Processing** (17 mins)
+  - MapReduce basics
+  - Hadoop ecosystem
+  - Spark overview
+  - Data lakes vs warehouses
+
+---
+
+### 7. E-Commerce & Social Systems
+- [ ] **Building Product Catalog Systems** (20 mins)
+  - Catalog service architecture
+  - Search and filtering
+  - Inventory management
+  - Price updates at scale
+- [ ] **Location-Based Matching System** (32 mins)
+  - Geo-based matching
+  - Recommendation engine
+  - Real-time matching
+  - Geohashing
+- [ ] **Notification System at Scale** (38 mins)
+  - Push notification architecture
+  - Email/SMS integration
+  - Notification preferences
+  - Rate limiting notifications
+- [ ] **Trending Topics Detection** (30 mins)
+  - Real-time trend detection
+  - Count-min sketch
+  - Sliding window aggregation
+  - Geo-based trends
+
+---
+
+### 8. Common System Design Problems
+- [x] **URL Shortening Service** (48 mins) ✅ DONE
+  - Base62 encoding
+  - Collision handling
+  - Analytics tracking
+  - Custom aliases
+- [x] **API Rate Limiter Design** (26 mins) ✅ DONE
+  - Token bucket, Sliding window - Already implemented
+  - Distributed rate limiting
+  - Rate limit headers
+- [ ] **Content Moderation System** (22 mins)
+  - Real-time text filtering
+  - ML-based detection
+  - Bloom filters for banned words
+  - Appeals system
+- [ ] **Web Crawler Architecture** (54 mins)
+  - URL frontier
+  - Politeness policies
+  - Duplicate detection
+  - Distributed crawling
+
+---
+
+### 9. FAANG System Designs
+- [x] **Social Feed System** ✅ DONE (in Case Studies)
+  - Fan-out on write vs read
+  - Timeline service
+  - Post storage
+- [x] **Ride-Sharing Platform** ✅ DONE (in Case Studies)
+  - Location tracking
+  - Matching algorithm
+  - Surge pricing
+- [x] **Video Streaming Service** ✅ DONE (in Case Studies)
+  - CDN architecture
+  - Adaptive bitrate
+  - Recommendation engine
+- [ ] **Messaging Platform**
+  - End-to-end encryption
+  - Message delivery
+  - Group chat scaling
+  - Presence system
+- [ ] **Video Sharing Platform**
+  - Video upload pipeline
+  - Transcoding at scale
+  - View counting
+  - Comments system
+- [ ] **Search Engine Fundamentals**
+  - Inverted index
+  - PageRank basics
+  - Query processing
+  - Autocomplete
+- [ ] **Distributed Cache System**
+  - Memcached architecture
+  - Redis cluster
+  - Cache coherence
+  - Eviction strategies
+- [ ] **Payment Processing System**
+  - Transaction handling
+  - Idempotency
+  - Fraud detection
+  - PCI compliance
+
+---
+
+### 10. Advanced Topics
+- [ ] **Microservices Architecture**
+  - Service discovery
+  - API Gateway
+  - Service mesh
+  - Saga pattern
+- [ ] **Event-Driven Architecture**
+  - Event sourcing
+  - CQRS pattern
+  - Event store
+  - Eventual consistency
+- [ ] **Observability & Monitoring**
+  - Metrics, Logs, Traces
+  - Distributed tracing
+  - Alerting strategies
+  - SLOs and SLIs
+- [ ] **Security in Distributed Systems**
+  - OAuth 2.0 / OIDC
+  - JWT tokens
+  - API security
+  - Zero trust architecture
+
+---
+
+## 🎯 Implementation Priority
+
+### Phase 1 - Core Foundations (Current Sprint)
+1. [x] Foundations module (3 topics) ✅ DONE
+2. [x] Transaction Isolation Levels ✅ DONE
+3. [ ] Circuit Breaker Pattern
+4. [ ] Bloom Filters Explained
+
+### Phase 2 - Async & Streaming
+5. [ ] Event Streaming with Kafka
+6. [ ] Real-time Communication Patterns
+7. [ ] Network Protocols & APIs
+
+### Phase 3 - Scale Topics
+8. [ ] Database Scaling Strategies
+9. [ ] Sharding & Partitioning Techniques
+10. [ ] Multi-Layer Caching Architecture
+
+### Phase 4 - Design Problems
+11. [x] URL Shortening Service ✅ DONE
+12. [ ] Web Crawler Architecture
+13. [ ] Notification System at Scale
+14. [ ] Trending Topics Detection
+
+### Phase 5 - Advanced Systems
+15. [ ] Messaging Platform
+16. [ ] Video Sharing Platform
+17. [ ] Payment Processing System
+18. [ ] Search Engine Fundamentals
+
+### Phase 6 - Architecture Patterns
+19. [ ] Microservices Architecture
+20. [ ] Event-Driven Architecture
+21. [ ] Observability & Monitoring
+22. [ ] Security in Distributed Systems
+
+---
+
+## ✅ Already Implemented (8 modules)
+- Foundations of System Design (3 sub-topics)
+- SQL & Relational Databases (Normalization 1NF, 2NF, 3NF)
+- Caching Strategies (Cache-aside, Write-through, Write-back, Read-through)
+- Message Queues (Work Queue, Pub/Sub, Fan-out)
+- Load Balancing (Round-robin, Least-conn, Weighted, IP-hash)
+- Consistent Hashing (Ring visualization)
+- Rate Limiting (Token bucket, Sliding window, Fixed window, Leaky bucket)
+- Case Studies (Social Feed, Ride-Sharing, Video Streaming)
+
+---
+
+## 📝 Notes
+- Each topic should have both **Theory Mode** and **Interactive Mode**
+- Include real interview questions for each topic
+- Add "Time Complexity" and "Space Complexity" where applicable
+- Include code snippets for implementation reference
+- All titles are original to this platform

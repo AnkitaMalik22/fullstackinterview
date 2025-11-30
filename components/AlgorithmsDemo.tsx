@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Code, Play, Pause, RotateCcw, ChevronRight, Zap, Timer, Search, GitMerge, Layers, Target, ArrowUpDown, Shuffle } from 'lucide-react';
+import { Code, Play, Pause, RotateCcw, ChevronRight, Zap, Timer, Search, GitMerge, Layers, Target, ArrowUpDown, Shuffle, ArrowLeftRight, SlidersHorizontal, Binary } from 'lucide-react';
 
 // --- TAB NAVIGATION ---
 interface Tab {
@@ -11,6 +11,8 @@ interface Tab {
 const tabs: Tab[] = [
   { id: 'sorting', label: 'Sorting', icon: <ArrowUpDown size={16} /> },
   { id: 'searching', label: 'Searching', icon: <Search size={16} /> },
+  { id: 'twopointers', label: 'Two Pointers', icon: <ArrowLeftRight size={16} /> },
+  { id: 'slidingwindow', label: 'Sliding Window', icon: <SlidersHorizontal size={16} /> },
   { id: 'recursion', label: 'Recursion', icon: <Layers size={16} /> },
   { id: 'dp', label: 'Dynamic Programming', icon: <Target size={16} /> },
   { id: 'greedy', label: 'Greedy', icon: <Zap size={16} /> },
@@ -529,6 +531,502 @@ const BinarySearchVisualizer: React.FC = () => {
           <p className="text-yellow-400">Sorted Array</p>
           <p className="text-xs text-slate-400 mt-1">Won't work on unsorted data</p>
         </div>
+      </div>
+    </div>
+  );
+};
+
+// --- TWO POINTERS VISUALIZER ---
+const TwoPointersVisualizer: React.FC = () => {
+  const [array, setArray] = useState([1, 2, 3, 4, 6, 8, 9, 11, 15]);
+  const [target, setTarget] = useState(10);
+  const [left, setLeft] = useState<number | null>(null);
+  const [right, setRight] = useState<number | null>(null);
+  const [found, setFound] = useState<[number, number] | null>(null);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
+  const [problem, setProblem] = useState<'twosum' | 'palindrome' | 'container'>('twosum');
+
+  const resetState = () => {
+    setLeft(null);
+    setRight(null);
+    setFound(null);
+    setSteps([]);
+  };
+
+  // Two Sum (Sorted Array)
+  const twoSumSorted = async () => {
+    setIsRunning(true);
+    resetState();
+    let l = 0, r = array.length - 1;
+    setLeft(l);
+    setRight(r);
+    setSteps([`Find two numbers that sum to ${target}`]);
+    await new Promise(res => setTimeout(res, 500));
+
+    while (l < r) {
+      const sum = array[l] + array[r];
+      setSteps(prev => [...prev, `arr[${l}] + arr[${r}] = ${array[l]} + ${array[r]} = ${sum}`]);
+      await new Promise(res => setTimeout(res, 700));
+
+      if (sum === target) {
+        setFound([l, r]);
+        setSteps(prev => [...prev, `✓ Found! Indices [${l}, ${r}]`]);
+        break;
+      } else if (sum < target) {
+        setSteps(prev => [...prev, `${sum} < ${target}, move left pointer →`]);
+        l++;
+        setLeft(l);
+      } else {
+        setSteps(prev => [...prev, `${sum} > ${target}, move right pointer ←`]);
+        r--;
+        setRight(r);
+      }
+      await new Promise(res => setTimeout(res, 300));
+    }
+
+    if (!found && l >= r) {
+      setSteps(prev => [...prev, `No pair found`]);
+    }
+    setIsRunning(false);
+  };
+
+  // Palindrome Check
+  const checkPalindrome = async () => {
+    const str = "racecar";
+    setIsRunning(true);
+    resetState();
+    setSteps([`Checking if "${str}" is a palindrome`]);
+    
+    let l = 0, r = str.length - 1;
+    setLeft(l);
+    setRight(r);
+    await new Promise(res => setTimeout(res, 500));
+
+    let isPalindrome = true;
+    while (l < r) {
+      setLeft(l);
+      setRight(r);
+      setSteps(prev => [...prev, `Compare '${str[l]}' (idx ${l}) with '${str[r]}' (idx ${r})`]);
+      await new Promise(res => setTimeout(res, 700));
+
+      if (str[l] !== str[r]) {
+        isPalindrome = false;
+        setSteps(prev => [...prev, `✗ '${str[l]}' ≠ '${str[r]}' - Not a palindrome!`]);
+        break;
+      }
+      setSteps(prev => [...prev, `✓ Match! Move both pointers inward`]);
+      l++;
+      r--;
+      await new Promise(res => setTimeout(res, 300));
+    }
+
+    if (isPalindrome) {
+      setFound([0, str.length - 1]);
+      setSteps(prev => [...prev, `✓ "${str}" IS a palindrome!`]);
+    }
+    setIsRunning(false);
+  };
+
+  const run = () => {
+    if (problem === 'twosum') twoSumSorted();
+    else if (problem === 'palindrome') checkPalindrome();
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Problem Selection */}
+      <div className="flex flex-wrap gap-2">
+        {[
+          { id: 'twosum', label: 'Two Sum (Sorted)', desc: 'Find pair summing to target' },
+          { id: 'palindrome', label: 'Palindrome Check', desc: 'Verify string is palindrome' },
+        ].map(p => (
+          <button
+            key={p.id}
+            onClick={() => { setProblem(p.id as any); resetState(); }}
+            disabled={isRunning}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              problem === p.id ? 'bg-brand-600 text-white' : 'bg-dark-700 text-slate-400 hover:text-white'
+            } ${isRunning ? 'opacity-50' : ''}`}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-wrap gap-4 items-center">
+        {problem === 'twosum' && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-slate-400">Target:</span>
+            <input
+              type="number"
+              value={target}
+              onChange={(e) => setTarget(parseInt(e.target.value) || 0)}
+              className="w-20 px-2 py-1 bg-dark-700 border border-dark-600 rounded text-white text-sm"
+              disabled={isRunning}
+              title="Target sum"
+            />
+          </div>
+        )}
+        <button
+          onClick={run}
+          disabled={isRunning}
+          className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+        >
+          <Play size={16} /> Run
+        </button>
+        <button
+          onClick={resetState}
+          className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm font-medium"
+        >
+          <RotateCcw size={16} className="inline mr-1" /> Reset
+        </button>
+      </div>
+
+      {/* Array Visualization */}
+      <div className="bg-dark-800 p-6 rounded-xl border border-dark-700">
+        <div className="flex gap-2 justify-center flex-wrap">
+          {(problem === 'palindrome' ? "racecar".split('') : array).map((val, idx) => (
+            <div key={idx} className="flex flex-col items-center gap-1">
+              <div
+                className={`w-12 h-12 rounded-lg flex items-center justify-center text-white font-mono text-sm border-2 transition-all ${
+                  found && (idx === found[0] || idx === found[1])
+                    ? 'bg-green-600 border-green-400 scale-110'
+                    : idx === left
+                    ? 'bg-blue-600 border-blue-400'
+                    : idx === right
+                    ? 'bg-purple-600 border-purple-400'
+                    : 'bg-dark-700 border-dark-600'
+                }`}
+              >
+                {val}
+              </div>
+              <span className="text-xs text-slate-500">{idx}</span>
+              <div className="h-4 text-xs">
+                {idx === left && <span className="text-blue-400">L</span>}
+                {idx === right && <span className="text-purple-400">R</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Steps Log */}
+      {steps.length > 0 && (
+        <div className="bg-dark-900 border border-dark-700 rounded-lg p-4 max-h-48 overflow-y-auto">
+          {steps.map((step, idx) => (
+            <div key={idx} className={`text-sm font-mono flex items-start gap-2 ${
+              step.startsWith('✓') ? 'text-green-400' : step.startsWith('✗') ? 'text-red-400' : 'text-slate-300'
+            }`}>
+              <ChevronRight size={14} className="text-brand-400 mt-0.5 shrink-0" />
+              {step}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Pattern Explanation */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="bg-dark-900 p-4 rounded-lg border border-dark-700">
+          <h4 className="font-bold text-white mb-2">Two Pointers Pattern</h4>
+          <pre className="text-xs text-slate-300 font-mono">
+{`left = 0, right = n - 1
+while left < right:
+    if condition_met:
+        return result
+    elif need_larger:
+        left++
+    else:
+        right--`}
+          </pre>
+        </div>
+        <div className="bg-dark-900 p-4 rounded-lg border border-dark-700">
+          <h4 className="font-bold text-white mb-2">Common Problems</h4>
+          <ul className="text-sm text-slate-400 space-y-1">
+            <li>• Two Sum II (sorted array)</li>
+            <li>• 3Sum, 4Sum</li>
+            <li>• Container With Most Water</li>
+            <li>• Valid Palindrome</li>
+            <li>• Remove Duplicates</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="bg-dark-800 p-4 rounded-lg border border-green-900/50">
+        <p className="text-green-400 font-mono text-sm">Time: O(n) | Space: O(1)</p>
+        <p className="text-xs text-slate-400 mt-1">Much better than O(n²) brute force!</p>
+      </div>
+    </div>
+  );
+};
+
+// --- SLIDING WINDOW VISUALIZER ---
+const SlidingWindowVisualizer: React.FC = () => {
+  const [array] = useState([2, 1, 5, 1, 3, 2, 8, 1, 3]);
+  const [k, setK] = useState(3);
+  const [windowStart, setWindowStart] = useState<number | null>(null);
+  const [windowEnd, setWindowEnd] = useState<number | null>(null);
+  const [currentSum, setCurrentSum] = useState(0);
+  const [maxSum, setMaxSum] = useState(0);
+  const [maxWindow, setMaxWindow] = useState<[number, number] | null>(null);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
+  const [problem, setProblem] = useState<'maxsum' | 'longest'>('maxsum');
+
+  const resetState = () => {
+    setWindowStart(null);
+    setWindowEnd(null);
+    setCurrentSum(0);
+    setMaxSum(0);
+    setMaxWindow(null);
+    setSteps([]);
+  };
+
+  // Max Sum of K consecutive elements
+  const maxSumK = async () => {
+    setIsRunning(true);
+    resetState();
+    setSteps([`Find max sum of ${k} consecutive elements`]);
+    
+    let sum = 0;
+    let maxS = 0;
+    let maxStart = 0;
+
+    // Build first window
+    for (let i = 0; i < k; i++) {
+      sum += array[i];
+      setWindowStart(0);
+      setWindowEnd(i);
+      setCurrentSum(sum);
+      setSteps(prev => [...prev, `Building window: adding ${array[i]}, sum = ${sum}`]);
+      await new Promise(res => setTimeout(res, 400));
+    }
+    maxS = sum;
+    setMaxSum(maxS);
+    setMaxWindow([0, k - 1]);
+    setSteps(prev => [...prev, `Initial window sum = ${sum}`]);
+    await new Promise(res => setTimeout(res, 500));
+
+    // Slide the window
+    for (let i = k; i < array.length; i++) {
+      const removed = array[i - k];
+      const added = array[i];
+      sum = sum - removed + added;
+      
+      setWindowStart(i - k + 1);
+      setWindowEnd(i);
+      setCurrentSum(sum);
+      setSteps(prev => [...prev, `Slide: remove ${removed}, add ${added} → sum = ${sum}`]);
+      await new Promise(res => setTimeout(res, 600));
+
+      if (sum > maxS) {
+        maxS = sum;
+        maxStart = i - k + 1;
+        setMaxSum(maxS);
+        setMaxWindow([maxStart, i]);
+        setSteps(prev => [...prev, `✓ New max! ${sum} > ${maxS - (sum - maxS)}`]);
+        await new Promise(res => setTimeout(res, 300));
+      }
+    }
+
+    setSteps(prev => [...prev, `✓ Max sum = ${maxS} at indices [${maxStart}, ${maxStart + k - 1}]`]);
+    setIsRunning(false);
+  };
+
+  // Longest substring with K distinct (simplified demo)
+  const longestKDistinct = async () => {
+    const str = "araaci";
+    const kDist = 2;
+    setIsRunning(true);
+    resetState();
+    setSteps([`Find longest substring with at most ${kDist} distinct chars in "${str}"`]);
+    
+    const charCount: Record<string, number> = {};
+    let start = 0;
+    let maxLen = 0;
+    let maxStart = 0;
+
+    for (let end = 0; end < str.length; end++) {
+      const char = str[end];
+      charCount[char] = (charCount[char] || 0) + 1;
+      
+      setWindowStart(start);
+      setWindowEnd(end);
+      setSteps(prev => [...prev, `Add '${char}' → chars: ${JSON.stringify(charCount)}`]);
+      await new Promise(res => setTimeout(res, 500));
+
+      // Shrink window if more than K distinct
+      while (Object.keys(charCount).length > kDist) {
+        const leftChar = str[start];
+        charCount[leftChar]--;
+        if (charCount[leftChar] === 0) delete charCount[leftChar];
+        start++;
+        setWindowStart(start);
+        setSteps(prev => [...prev, `Shrink: remove '${leftChar}' from left`]);
+        await new Promise(res => setTimeout(res, 400));
+      }
+
+      const len = end - start + 1;
+      if (len > maxLen) {
+        maxLen = len;
+        maxStart = start;
+        setMaxSum(maxLen);
+        setMaxWindow([start, end]);
+        setSteps(prev => [...prev, `✓ New longest: "${str.slice(start, end + 1)}" (len=${len})`]);
+      }
+    }
+
+    setSteps(prev => [...prev, `✓ Longest = "${str.slice(maxStart, maxStart + maxLen)}" with length ${maxLen}`]);
+    setIsRunning(false);
+  };
+
+  const run = () => {
+    if (problem === 'maxsum') maxSumK();
+    else longestKDistinct();
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Problem Selection */}
+      <div className="flex flex-wrap gap-2">
+        {[
+          { id: 'maxsum', label: 'Max Sum Subarray', desc: 'Fixed size window' },
+          { id: 'longest', label: 'Longest K Distinct', desc: 'Variable size window' },
+        ].map(p => (
+          <button
+            key={p.id}
+            onClick={() => { setProblem(p.id as any); resetState(); }}
+            disabled={isRunning}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              problem === p.id ? 'bg-brand-600 text-white' : 'bg-dark-700 text-slate-400 hover:text-white'
+            } ${isRunning ? 'opacity-50' : ''}`}
+          >
+            {p.label}
+            <span className="text-xs ml-2 opacity-70">({p.desc})</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-wrap gap-4 items-center">
+        {problem === 'maxsum' && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-slate-400">Window Size (k):</span>
+            <input
+              type="number"
+              value={k}
+              onChange={(e) => setK(Math.max(1, Math.min(array.length, parseInt(e.target.value) || 1)))}
+              className="w-16 px-2 py-1 bg-dark-700 border border-dark-600 rounded text-white text-sm"
+              disabled={isRunning}
+              min={1}
+              max={array.length}
+              title="Window size"
+            />
+          </div>
+        )}
+        <button
+          onClick={run}
+          disabled={isRunning}
+          className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+        >
+          <Play size={16} /> Run
+        </button>
+        <button
+          onClick={resetState}
+          className="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-white rounded-lg text-sm font-medium"
+        >
+          <RotateCcw size={16} className="inline mr-1" /> Reset
+        </button>
+      </div>
+
+      {/* Stats */}
+      <div className="flex gap-4 text-sm">
+        <div className="bg-dark-800 px-4 py-2 rounded-lg border border-dark-700">
+          <span className="text-slate-500">Current {problem === 'maxsum' ? 'Sum' : 'Length'}: </span>
+          <span className="text-yellow-400 font-mono">{currentSum}</span>
+        </div>
+        <div className="bg-dark-800 px-4 py-2 rounded-lg border border-green-900/50">
+          <span className="text-slate-500">Max: </span>
+          <span className="text-green-400 font-mono">{maxSum}</span>
+        </div>
+      </div>
+
+      {/* Array Visualization */}
+      <div className="bg-dark-800 p-6 rounded-xl border border-dark-700">
+        <div className="flex gap-2 justify-center flex-wrap">
+          {(problem === 'longest' ? "araaci".split('') : array).map((val, idx) => {
+            const inWindow = windowStart !== null && windowEnd !== null && idx >= windowStart && idx <= windowEnd;
+            const inMaxWindow = maxWindow && idx >= maxWindow[0] && idx <= maxWindow[1];
+            
+            return (
+              <div key={idx} className="flex flex-col items-center gap-1">
+                <div
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center text-white font-mono text-sm border-2 transition-all ${
+                    inWindow
+                      ? 'bg-yellow-600/50 border-yellow-400'
+                      : inMaxWindow
+                      ? 'bg-green-600/30 border-green-600'
+                      : 'bg-dark-700 border-dark-600'
+                  }`}
+                >
+                  {val}
+                </div>
+                <span className="text-xs text-slate-500">{idx}</span>
+              </div>
+            );
+          })}
+        </div>
+        {windowStart !== null && windowEnd !== null && (
+          <div className="text-center mt-4 text-xs text-yellow-400">
+            Window: [{windowStart}, {windowEnd}]
+          </div>
+        )}
+      </div>
+
+      {/* Steps Log */}
+      {steps.length > 0 && (
+        <div className="bg-dark-900 border border-dark-700 rounded-lg p-4 max-h-48 overflow-y-auto">
+          {steps.map((step, idx) => (
+            <div key={idx} className={`text-sm font-mono flex items-start gap-2 ${
+              step.startsWith('✓') ? 'text-green-400' : 'text-slate-300'
+            }`}>
+              <ChevronRight size={14} className="text-brand-400 mt-0.5 shrink-0" />
+              {step}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Pattern Explanation */}
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="bg-dark-900 p-4 rounded-lg border border-dark-700">
+          <h4 className="font-bold text-white mb-2">Fixed Window Pattern</h4>
+          <pre className="text-xs text-slate-300 font-mono">
+{`// Window of size K
+for i from 0 to n-1:
+    add arr[i] to window
+    if i >= k-1:
+        process window
+        remove arr[i-k+1]`}
+          </pre>
+        </div>
+        <div className="bg-dark-900 p-4 rounded-lg border border-dark-700">
+          <h4 className="font-bold text-white mb-2">Variable Window Pattern</h4>
+          <pre className="text-xs text-slate-300 font-mono">
+{`start = 0
+for end from 0 to n-1:
+    expand: add arr[end]
+    while window invalid:
+        shrink: remove arr[start]
+        start++`}
+          </pre>
+        </div>
+      </div>
+
+      <div className="bg-dark-800 p-4 rounded-lg border border-green-900/50">
+        <p className="text-green-400 font-mono text-sm">Time: O(n) | Space: O(1) or O(k)</p>
+        <p className="text-xs text-slate-400 mt-1">Avoid recomputing entire window each time!</p>
       </div>
     </div>
   );
@@ -1131,6 +1629,10 @@ export const AlgorithmsDemo: React.FC<AlgorithmsDemoProps> = ({
         return <SortingVisualizer />;
       case 'searching':
         return <BinarySearchVisualizer />;
+      case 'twopointers':
+        return <TwoPointersVisualizer />;
+      case 'slidingwindow':
+        return <SlidingWindowVisualizer />;
       case 'recursion':
         return <RecursionVisualizer />;
       case 'dp':

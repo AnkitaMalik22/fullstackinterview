@@ -27,9 +27,15 @@ export enum ViewState {
   BACKEND_API = 'BACKEND_API',
   BACKEND_SECURITY = 'BACKEND_SECURITY',
 
+  // Backend System Design (Advanced)
+  BACKEND_SYSDESIGN = 'BACKEND_SYSDESIGN',
+
   // DSA
   DSA_STRUCTURES = 'DSA_STRUCTURES',
   DSA_ALGORITHMS = 'DSA_ALGORITHMS',
+
+  // Frontend-Specific DSA
+  FRONTEND_DSA = 'FRONTEND_DSA',
 
   // Practice
   AI_COACH = 'AI_COACH',

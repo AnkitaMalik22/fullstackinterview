@@ -7,17 +7,16 @@ import {
   Network, 
   Bot, 
   Code2,
-  Database,
   Palette,
   Accessibility,
   Server,
-  Globe,
-  Lock,
+  ShieldAlert,
+  Building2,
+  GitCompare,
   Binary,
   Cpu,
   Box,
-  X,
-  ShieldAlert
+  X
 } from 'lucide-react';
 
 interface NavigationProps {
@@ -103,30 +102,26 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
       group: 'Frontend Advanced'
     },
 
-    // BACKEND
+    // BACKEND SYSTEM DESIGN
+    {
+      id: ViewState.BACKEND_SYSDESIGN,
+      label: 'System Design Mastery',
+      icon: <Building2 size={18} />,
+      group: 'Backend & System Design'
+    },
     {
       id: ViewState.BACKEND_SYSTEM,
-      label: 'System Architecture', 
+      label: 'Backend Fundamentals', 
       icon: <Server size={18} />,
-      group: 'Backend'
+      group: 'Backend & System Design'
     },
+
+    // FRONTEND DSA
     {
-      id: ViewState.BACKEND_DB,
-      label: 'Databases & Scaling',
-      icon: <Database size={18} />,
-      group: 'Backend'
-    },
-    {
-      id: ViewState.BACKEND_API,
-      label: 'API Design',
-      icon: <Globe size={18} />,
-      group: 'Backend'
-    },
-    {
-      id: ViewState.BACKEND_SECURITY,
-      label: 'Backend Security',
-      icon: <Lock size={18} />,
-      group: 'Backend'
+      id: ViewState.FRONTEND_DSA,
+      label: 'Frontend Internals',
+      icon: <GitCompare size={18} />,
+      group: 'Frontend Advanced'
     },
 
     // PRACTICE
@@ -146,7 +141,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
     return acc;
   }, {} as Record<string, NavItem[]>);
 
-  const groupOrder = ['Start', 'CS Fundamentals', 'Frontend Core', 'Frontend Advanced', 'Backend', 'Practice'];
+  const groupOrder = ['Start', 'CS Fundamentals', 'Frontend Core', 'Frontend Advanced', 'Backend & System Design', 'Practice'];
 
   return (
     <>
@@ -183,7 +178,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
               <p className="text-[9px] text-slate-500 font-medium tracking-widest mt-0.5 uppercase">Mastery v2.0</p>
             </div>
           </div>
-          <button onClick={onClose} className="md:hidden text-slate-400 hover:text-white transition-colors">
+          <button onClick={onClose} title="Close menu" className="md:hidden text-slate-400 hover:text-white transition-colors">
             <X size={24} />
           </button>
         </div>
