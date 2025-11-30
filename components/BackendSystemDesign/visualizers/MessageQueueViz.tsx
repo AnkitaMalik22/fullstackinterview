@@ -55,12 +55,12 @@ const MessageQueueViz: React.FC = () => {
         </p>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto">
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as typeof activeTab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+            className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
               activeTab === tab.id
                 ? 'bg-purple-500 text-white'
                 : 'bg-dark-800 text-slate-400 hover:text-white'

@@ -124,19 +124,16 @@ const IsolationLevelsViz: React.FC = () => {
       </div>
 
       {/* Level Selector */}
-      <div className="flex gap-2 overflow-x-auto pb-2">
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         {(Object.keys(levels) as Array<keyof typeof levels>).map(level => (
           <button
             key={level}
             onClick={() => { setActiveLevel(level); resetSimulation(); }}
-            className={`px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${
+            className={`flex-shrink-0 px-4 py-2 rounded-lg text-sm font-bold transition-colors whitespace-nowrap ${
               activeLevel === level 
                 ? `bg-${levels[level].color}-500/30 text-${levels[level].color}-400 border border-${levels[level].color}-500`
                 : 'bg-dark-700 text-slate-400 hover:text-white'
             }`}
-            style={{
-              backgroundColor: activeLevel === level ? `var(--${levels[level].color}-bg)` : undefined,
-            }}
           >
             {levels[level].name}
           </button>

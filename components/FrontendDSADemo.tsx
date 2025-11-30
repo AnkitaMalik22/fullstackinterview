@@ -800,22 +800,25 @@ export const FrontendDSADemo: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="flex gap-2 overflow-x-auto pb-2 border-b border-dark-700 mb-6 scrollbar-hide">
-        {visualizers.map(v => (
-          <button
-            key={v.id}
-            onClick={() => setActiveViz(v.id)}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 active:scale-95 ${
-              activeViz === v.id
-                ? 'bg-white text-black scale-105 shadow'
-                : 'bg-dark-800 text-slate-400 hover:text-white hover:scale-105'
-            }`}
-          >
-            {v.icon}
-            {v.label}
-          </button>
-        ))}
+    <div className="space-y-6 animate-fadeIn px-4 md:px-0">
+      {/* Mobile-optimized horizontal scroll tabs */}
+      <div className="relative -mx-4 md:mx-0">
+        <div className="flex gap-2 overflow-x-auto pb-2 border-b border-dark-700 mb-6 scrollbar-hide px-4 md:px-0">
+          {visualizers.map(v => (
+            <button
+              key={v.id}
+              onClick={() => setActiveViz(v.id)}
+              className={`flex-shrink-0 px-3 md:px-4 py-2 rounded-full text-xs font-bold transition-colors whitespace-nowrap flex items-center gap-2 touch-manipulation ${
+                activeViz === v.id
+                  ? 'bg-white text-black'
+                  : 'bg-dark-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              {v.icon}
+              {v.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {activeViz === 'virtualdom' && <VirtualDOMViz />}

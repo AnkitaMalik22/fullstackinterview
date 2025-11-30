@@ -1,10 +1,10 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { ViewState } from './types';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { InterviewCoach } from './components/InterviewCoach';
 import { ErrorBoundary } from './components/shared/ErrorBoundary';
-import { BookOpen, Code2, Menu, Loader2 } from 'lucide-react';
+import { BookOpen, Code2, Menu, Loader2, Home } from 'lucide-react';
 
 // --- ROUTE-BASED CODE SPLITTING ---
 // We lazily load these heavy components so the initial page load (Dashboard) is faster.
@@ -31,6 +31,16 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [isLearnMode, setIsLearnMode] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+    return () => document.body.classList.remove('menu-open');
+  }, [isMobileMenuOpen]);
 
   const renderContent = () => {
     switch (currentView) {
@@ -114,57 +124,76 @@ const App: React.FC = () => {
       />
       
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        {/* Top Header Area */}
-        <header className="h-16 border-b border-dark-700 flex items-center justify-between px-4 md:px-8 bg-dark-900/80 backdrop-blur-md shrink-0 z-20">
-          <div className="flex items-center gap-3">
+        {/* Top Header Area - Mobile Optimized */}
+        <header className="h-14 md:h-16 border-b border-dark-700 flex items-center justify-between px-3 md:px-8 bg-dark-900/95 backdrop-blur-md shrink-0 z-20 safe-area-top">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
              <button 
-               className="md:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-dark-800 transition-colors"
+               className="md:hidden p-2.5 text-slate-400 hover:text-white rounded-lg hover:bg-dark-800 transition-colors active:scale-95 touch-manipulation"
                onClick={() => setIsMobileMenuOpen(true)}
+               title="Open menu"
+               aria-label="Open navigation menu"
              >
-               <Menu size={24} />
+               <Menu size={22} />
              </button>
 
-            <div className="flex items-center gap-2 text-sm text-slate-400 truncate">
-              <span className="hover:text-white cursor-pointer hidden md:inline" onClick={() => setCurrentView(ViewState.HOME)}>Home</span>
-              <span className="hidden md:inline">/</span>
-              <span className="text-white font-medium capitalize truncate max-w-[150px] md:max-w-none">
+            {/* Breadcrumb - simplified on mobile */}
+            <div className="flex items-center gap-2 text-sm text-slate-400 truncate min-w-0">
+              <button 
+                className="hover:text-white cursor-pointer hidden md:inline transition-colors"
+                onClick={() => setCurrentView(ViewState.HOME)}
+                title="Go to home"
+              >
+                Home
+              </button>
+              <button 
+                className="md:hidden p-1 hover:text-white rounded transition-colors"
+                onClick={() => setCurrentView(ViewState.HOME)}
+                title="Go to home"
+                aria-label="Go to home"
+              >
+                <Home size={18} />
+              </button>
+              <span className="text-dark-600">/</span>
+              <span className="text-white font-medium capitalize truncate max-w-[120px] md:max-w-none text-xs md:text-sm">
                 {currentView.replace(/_/g, ' ').toLowerCase()}
               </span>
             </div>
           </div>
 
-          {/* Mode Toggle */}
+          {/* Mode Toggle - Touch Optimized */}
           {currentView !== ViewState.HOME && currentView !== ViewState.AI_COACH && (
-            <div className="flex items-center bg-dark-800 rounded-lg p-1 border border-dark-700 shrink-0">
+            <div className="flex items-center bg-dark-800 rounded-lg p-0.5 md:p-1 border border-dark-700 shrink-0">
               <button
                 onClick={() => setIsLearnMode(false)}
-                className={`px-2 md:px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
+                title="Interactive mode"
+                className={`px-2.5 md:px-3 py-2 md:py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all touch-manipulation active:scale-95 ${
                   !isLearnMode 
                     ? 'bg-dark-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <Code2 size={14} />
-                <span className="hidden md:inline">Interactive</span>
+                <span className="hidden sm:inline">Interactive</span>
               </button>
               <button
                 onClick={() => setIsLearnMode(true)}
-                className={`px-2 md:px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all ${
+                title="Theory mode"
+                className={`px-2.5 md:px-3 py-2 md:py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-all touch-manipulation active:scale-95 ${
                   isLearnMode 
                     ? 'bg-brand-600 text-white shadow-sm' 
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <BookOpen size={14} />
-                <span className="hidden md:inline">Theory</span>
+                <span className="hidden sm:inline">Theory</span>
               </button>
             </div>
           )}
         </header>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth w-full">
-          <div className="max-w-6xl mx-auto h-full pb-24">
+        {/* Scrollable Content Area - Mobile Optimized */}
+        <div className="flex-1 overflow-y-auto p-3 md:p-8 scroll-smooth w-full safe-area-bottom">
+          <div className="max-w-6xl mx-auto h-full pb-20 md:pb-24">
             <ErrorBoundary>
               <Suspense fallback={<PageLoader />}>
                 {renderContent()}

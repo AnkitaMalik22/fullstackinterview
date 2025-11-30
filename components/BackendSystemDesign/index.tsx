@@ -78,16 +78,18 @@ export const BackendSystemDesign: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="flex gap-2 overflow-x-auto pb-2 border-b border-dark-700 mb-6 scrollbar-hide">
+    <div className="space-y-4 md:space-y-6 animate-fadeIn">
+      {/* Mobile-optimized horizontal scroll tabs */}
+      <div className="flex gap-2 overflow-x-auto pb-3 border-b border-dark-700 mb-4 md:mb-6 scrollbar-hide -mx-3 px-3 md:mx-0 md:px-0">
         {visualizers.map(v => (
           <button
             key={v.id}
             onClick={() => setActiveViz(v.id)}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 active:scale-95 ${
+            title={v.label}
+            className={`flex-shrink-0 px-3 md:px-4 py-2.5 md:py-2 rounded-full text-xs font-bold transition-colors whitespace-nowrap flex items-center gap-1.5 md:gap-2 touch-manipulation ${
               activeViz === v.id
-                ? 'bg-white text-black scale-105 shadow'
-                : 'bg-dark-800 text-slate-400 hover:text-white hover:scale-105'
+                ? 'bg-white text-black'
+                : 'bg-dark-800 text-slate-400 hover:text-white'
             }`}
           >
             {v.icon}

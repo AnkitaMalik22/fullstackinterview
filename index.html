@@ -91,6 +91,153 @@
       .scrollbar-hide {
         -ms-overflow-style: none;
         scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* ========== MOBILE OPTIMIZATIONS ========== */
+      
+      /* Prevent text selection on touch interactions */
+      .no-select {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Touch-friendly buttons - larger tap targets */
+      @media (max-width: 768px) {
+        button, a, [role="button"] {
+          min-height: 44px;
+          min-width: 44px;
+        }
+        
+        /* Improve touch responsiveness */
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Prevent zoom on double-tap for buttons */
+        button {
+          touch-action: manipulation;
+        }
+
+        /* Better spacing for mobile content */
+        .mobile-spacing {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        /* Full-width cards on mobile */
+        .mobile-full {
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+        }
+
+        /* Stack grids vertically on mobile */
+        .mobile-stack {
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Hide on mobile */
+        .desktop-only {
+          display: none !important;
+        }
+      }
+
+      /* Show only on mobile */
+      @media (min-width: 769px) {
+        .mobile-only {
+          display: none !important;
+        }
+      }
+
+      /* Smooth momentum scrolling for iOS */
+      .scroll-smooth {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+
+      /* Safe area padding for notched devices */
+      .safe-area-bottom {
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+      }
+      .safe-area-top {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+
+      /* Horizontal scroll container for mobile tabs */
+      .mobile-scroll-x {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .mobile-scroll-x::-webkit-scrollbar {
+        display: none;
+      }
+      .mobile-scroll-x > * {
+        scroll-snap-align: start;
+      }
+
+      /* Touch-friendly visualizer controls */
+      @media (max-width: 768px) {
+        .viz-control {
+          min-height: 48px;
+          padding: 12px 16px;
+          font-size: 14px;
+        }
+        
+        .viz-array-item {
+          min-width: 40px;
+          min-height: 40px;
+          font-size: 12px;
+        }
+      }
+
+      /* Prevent body scroll when mobile menu is open */
+      body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+      }
+
+      /* Animation for mobile menu */
+      @keyframes slideInLeft {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+      }
+      .slide-in-left {
+        animation: slideInLeft 0.3s ease-out;
+      }
+
+      /* Bottom navigation bar styles (optional future use) */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid #334155;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        z-index: 50;
+      }
+
+      /* Floating action button */
+      .fab {
+        position: fixed;
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 40;
       }
     </style>
   <script type="importmap">

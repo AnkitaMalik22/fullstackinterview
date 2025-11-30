@@ -16,31 +16,34 @@ const PerformanceGuide = ({ activeTab, setActiveTab }: { activeTab: string, setA
   ];
 
   return (
-    <div className="space-y-8 max-w-5xl animate-fadeIn pb-24">
-      <div className="border-b border-dark-700 pb-6">
-        <h2 className="text-3xl font-bold text-white mb-4">Performance & Optimization</h2>
-        <div className="flex flex-wrap gap-3 text-sm text-slate-400">
+    <div className="space-y-6 md:space-y-8 max-w-5xl animate-fadeIn pb-24 px-4 md:px-0">
+      <div className="border-b border-dark-700 pb-4 md:pb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">Performance & Optimization</h2>
+        <div className="flex flex-wrap gap-2 md:gap-3 text-xs md:text-sm text-slate-400">
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Render Tuning</span>
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Bundle Size</span>
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Web Vitals</span>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 pb-4 border-b border-dark-800">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id 
-                ? 'bg-brand-600 text-white' 
-                : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white'
-            }`}
-          >
-            {tab.icon}
-            {tab.label}
-          </button>
-        ))}
+      {/* Mobile-optimized horizontal scroll tabs */}
+      <div className="relative -mx-4 md:mx-0">
+        <div className="flex gap-2 pb-4 border-b border-dark-800 overflow-x-auto scrollbar-hide px-4 md:px-0 md:flex-wrap">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === tab.id 
+                  ? 'bg-brand-600 text-white' 
+                  : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="prose prose-invert max-w-none text-slate-300">

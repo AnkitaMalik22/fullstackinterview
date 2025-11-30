@@ -491,7 +491,7 @@ export const ApiResilienceDemo: React.FC<{ isLearnMode?: boolean, initialTab?: s
           <button 
             key={t.id}
             onClick={() => setActiveTab(t.id)}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap active:scale-95 ${activeTab === t.id ? 'bg-white text-black scale-105 shadow' : 'bg-dark-800 text-slate-400 hover:text-white hover:scale-105'}`}
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-colors whitespace-nowrap ${activeTab === t.id ? 'bg-white text-black' : 'bg-dark-800 text-slate-400 hover:text-white'}`}
           >
             {t.label}
           </button>

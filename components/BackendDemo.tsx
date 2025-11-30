@@ -12,31 +12,34 @@ const BackendGuide = ({ activeTab, setActiveTab }: { activeTab: string, setActiv
   ];
 
   return (
-    <div className="space-y-8 max-w-5xl animate-fadeIn pb-24">
-      <div className="border-b border-dark-700 pb-6">
-        <h2 className="text-3xl font-bold text-white mb-4">Backend & DSA Masterclass</h2>
-        <div className="flex flex-wrap gap-3 text-sm text-slate-400">
+    <div className="space-y-6 md:space-y-8 max-w-5xl animate-fadeIn pb-24 px-4 md:px-0">
+      <div className="border-b border-dark-700 pb-4 md:pb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">Backend & DSA Masterclass</h2>
+        <div className="flex flex-wrap gap-2 md:gap-3 text-xs md:text-sm text-slate-400">
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Scalability</span>
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Distributed Systems</span>
           <span className="bg-brand-900/30 text-brand-300 px-2 py-1 rounded border border-brand-500/20">Algorithms</span>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 pb-4 border-b border-dark-800 overflow-x-auto scrollbar-hide">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap active:scale-95 ${
-              activeTab === tab.id 
-                ? 'bg-brand-600 text-white shadow-lg shadow-brand-900/20 scale-105' 
-                : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white hover:scale-105'
-            }`}
-          >
-            {tab.icon}
-            {tab.label}
-          </button>
-        ))}
+      {/* Mobile-optimized horizontal scroll tabs */}
+      <div className="relative -mx-4 md:mx-0">
+        <div className="flex gap-2 pb-4 border-b border-dark-800 overflow-x-auto scrollbar-hide px-4 md:px-0 md:flex-wrap">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === tab.id 
+                  ? 'bg-brand-600 text-white' 
+                  : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="prose prose-invert max-w-none text-slate-300">
@@ -1225,10 +1228,10 @@ export const BackendDemo: React.FC<{ isLearnMode?: boolean, initialTab?: string 
           <button 
             key={t.id}
             onClick={() => setActiveTab(t.id)}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap active:scale-95 ${
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-colors whitespace-nowrap ${
               activeTab === t.id 
-                ? 'bg-white text-black scale-105 shadow' 
-                : 'bg-dark-800 text-slate-400 hover:text-white hover:scale-105'
+                ? 'bg-white text-black' 
+                : 'bg-dark-800 text-slate-400 hover:text-white'
             }`}
           >
             {t.label}

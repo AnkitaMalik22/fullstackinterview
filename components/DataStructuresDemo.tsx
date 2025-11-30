@@ -1173,32 +1173,34 @@ export const DataStructuresDemo: React.FC<DataStructuresDemoProps> = ({
   };
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-6 md:space-y-8 animate-fadeIn px-4 md:px-0">
       {/* Header */}
-      <div className="border-b border-dark-700 pb-6">
-        <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-          <Binary className="text-brand-400" />
+      <div className="border-b border-dark-700 pb-4 md:pb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 flex items-center gap-2 md:gap-3">
+          <Binary className="text-brand-400" size={24} />
           Data Structures
         </h2>
-        <p className="text-slate-400">Master the building blocks of efficient algorithms</p>
+        <p className="text-sm md:text-base text-slate-400">Master the building blocks of efficient algorithms</p>
       </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2 pb-4 border-b border-dark-800 overflow-x-auto scrollbar-hide">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap active:scale-95 ${
-              activeTab === tab.id 
-                ? 'bg-brand-600 text-white shadow-lg shadow-brand-900/20 scale-105' 
-                : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white hover:scale-105'
-            }`}
-          >
-            {tab.icon}
-            {tab.label}
-          </button>
-        ))}
+      {/* Tabs - Mobile-optimized horizontal scroll */}
+      <div className="relative -mx-4 md:mx-0">
+        <div className="flex gap-2 pb-4 border-b border-dark-800 overflow-x-auto scrollbar-hide px-4 md:px-0 md:flex-wrap">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex-shrink-0 flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === tab.id 
+                  ? 'bg-brand-600 text-white' 
+                  : 'bg-dark-800 text-slate-400 hover:bg-dark-700 hover:text-white'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Content */}

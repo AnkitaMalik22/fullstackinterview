@@ -385,7 +385,7 @@ const CaseStudiesViz: React.FC = () => {
           <button
             key={c}
             onClick={() => setActiveCase(c)}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap shrink-0 ${
+            className={`flex-shrink-0 px-3 py-2 rounded-lg text-xs font-bold transition-colors flex items-center gap-2 whitespace-nowrap ${
               activeCase === c 
                 ? `bg-${cases[c].color}-500/20 text-${cases[c].color}-400 border border-${cases[c].color}-500/50` 
                 : 'bg-dark-700 text-slate-400 hover:text-white border border-dark-600'
