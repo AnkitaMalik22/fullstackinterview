@@ -17,7 +17,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
              🚀 Updated for 2025 Interview Season
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-            Master the <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-teal-400">Full Stack</span> Interview
+            Master the <span style={{ background: 'linear-gradient(to right, #38bdf8, #2dd4bf)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Full Stack</span> Interview
           </h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mb-10 leading-relaxed">
             A comprehensive preparation platform combining deep theoretical guides with interactive mental models. 

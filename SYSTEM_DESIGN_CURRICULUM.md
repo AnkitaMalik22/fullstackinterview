@@ -74,11 +74,11 @@ Comprehensive system design curriculum for the interview prep platform. Each top
   - Work queues, Fan-out - Already implemented
   - Queue patterns
   - Dead letter queues
-- [ ] **Event Streaming with Kafka** (23 mins)
-  - Topics, Partitions, Consumer Groups
-  - Offset management
-  - Exactly-once semantics
-  - Kafka vs traditional MQ
+- [x] **Kafka vs RabbitMQ** (23 mins) ✅ DONE
+  - Head-to-head comparison table
+  - Architecture diagrams
+  - When to choose which (decision guide)
+  - Interview answer template
 - [ ] **Real-time Communication Patterns** (6 mins)
   - WebSockets
   - Server-Sent Events
@@ -92,11 +92,11 @@ Comprehensive system design curriculum for the interview prep platform. Each top
   - Round-robin, Least-conn, Weighted - Already implemented
   - L4 vs L7 load balancing
   - Health checks
-- [ ] **Circuit Breaker Pattern** (13 mins)
-  - States: Closed, Open, Half-Open
-  - Failure thresholds
-  - Fallback strategies
-  - Bulkhead pattern
+- [x] **Circuit Breaker Pattern** (13 mins) ✅ DONE
+  - States: Closed, Open, Half-Open (interactive simulation)
+  - Failure thresholds configuration
+  - Fallback strategies (cache, default, backup service)
+  - Related patterns: Bulkhead, Retry, Timeout
 - [ ] **Data Backup & Recovery** (9 mins)
   - Replication strategies
   - Backup approaches
@@ -176,37 +176,47 @@ Comprehensive system design curriculum for the interview prep platform. Each top
   - ML-based detection
   - Bloom filters for banned words
   - Appeals system
-- [ ] **Web Crawler Architecture** (54 mins)
-  - URL frontier
-  - Politeness policies
-  - Duplicate detection
-  - Distributed crawling
+- [x] **Web Crawler Architecture** (54 mins) ✅ DONE
+  - URL frontier (priority queue simulation)
+  - Politeness policies (robots.txt, rate limiting)
+  - Duplicate detection (Bloom filters, URL normalization)
+  - Distributed crawling architecture
 
 ---
 
 ### 9. FAANG System Designs
-- [x] **Social Feed System** ✅ DONE (in Case Studies)
-  - Fan-out on write vs read
-  - Timeline service
-  - Post storage
-- [x] **Ride-Sharing Platform** ✅ DONE (in Case Studies)
-  - Location tracking
-  - Matching algorithm
-  - Surge pricing
-- [x] **Video Streaming Service** ✅ DONE (in Case Studies)
-  - CDN architecture
-  - Adaptive bitrate
-  - Recommendation engine
-- [ ] **Messaging Platform**
-  - End-to-end encryption
-  - Message delivery
-  - Group chat scaling
-  - Presence system
-- [ ] **Video Sharing Platform**
-  - Video upload pipeline
-  - Transcoding at scale
-  - View counting
-  - Comments system
+- [x] **Twitter / Social Feed** ✅ DONE
+  - Fan-out on write vs read (hybrid approach)
+  - Timeline service, celebrity problem
+  - Architecture layers and data flow
+- [x] **Uber / Ride-Sharing** ✅ DONE
+  - Location tracking with geohashing
+  - Real-time matching algorithm
+  - Surge pricing, WebSocket communication
+- [x] **Netflix / Video Streaming** ✅ DONE
+  - Open Connect CDN architecture
+  - Adaptive bitrate streaming
+  - Transcoding pipeline, recommendations
+- [x] **WhatsApp / Messaging** ✅ DONE
+  - End-to-end encryption (Signal protocol)
+  - Store-and-forward pattern
+  - Message receipts, presence system
+- [x] **YouTube / Video Sharing** ✅ DONE
+  - Video upload and transcoding pipeline
+  - View counting at scale
+  - CDN edge caching
+- [x] **Instagram / Photo Sharing** ✅ DONE
+  - Image processing pipeline
+  - ML-ranked feed generation
+  - Stories ephemeral storage
+- [x] **Spotify / Music Streaming** ✅ DONE
+  - Hybrid CDN + P2P delivery
+  - Audio analysis for recommendations
+  - Offline sync with DRM
+- [x] **Payment System (Stripe/PayPal)** ✅ DONE
+  - Idempotency keys for transactions
+  - Double-entry ledger
+  - Saga pattern, PCI compliance
 - [ ] **Search Engine Fundamentals**
   - Inverted index
   - PageRank basics
