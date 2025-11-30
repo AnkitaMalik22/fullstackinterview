@@ -29,6 +29,7 @@ interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate, isOpen, onClose }) => {
   const navItems: NavItem[] = [
+    // START
     { 
       id: ViewState.HOME, 
       label: 'Dashboard', 
@@ -36,94 +37,96 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
       group: 'Start'
     },
     
-    // FRONTEND DOMAIN
+    // CS FUNDAMENTALS (Learn these first!)
+    {
+      id: ViewState.DSA_STRUCTURES,
+      label: 'Data Structures',
+      icon: <Binary size={18} />,
+      group: 'CS Fundamentals'
+    },
+    {
+      id: ViewState.DSA_ALGORITHMS,
+      label: 'Algorithms',
+      icon: <Cpu size={18} />,
+      group: 'CS Fundamentals'
+    },
+
+    // FRONTEND CORE (Start with basics, then advanced)
     { 
-      id: ViewState.ARCHITECTURE, 
-      label: 'System Design', 
-      icon: <Layers size={18} />,
-      group: 'Frontend Domain'
+      id: ViewState.CSS_STYLING, 
+      label: 'CSS & Layouts', 
+      icon: <Palette size={18} />,
+      group: 'Frontend Core'
     },
     { 
       id: ViewState.STATE_MANAGEMENT, 
       label: 'State Management', 
       icon: <Code2 size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Core'
     },
     { 
       id: ViewState.PERFORMANCE_LAB, 
       label: 'Performance & Rendering', 
       icon: <Zap size={18} />,
-      group: 'Frontend Domain'
-    },
-    { 
-      id: ViewState.CSS_STYLING, 
-      label: 'CSS & Layouts', 
-      icon: <Palette size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Core'
     },
     { 
       id: ViewState.BROWSER_APIS, 
       label: 'Browser APIs', 
       icon: <Box size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Core'
+    },
+
+    // FRONTEND ADVANCED
+    { 
+      id: ViewState.ARCHITECTURE, 
+      label: 'System Design', 
+      icon: <Layers size={18} />,
+      group: 'Frontend Advanced'
     },
     { 
       id: ViewState.API_RESILIENCE, 
-      label: 'Networking', 
+      label: 'API & Networking', 
       icon: <Network size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Advanced'
     },
     { 
       id: ViewState.SECURITY, 
-      label: 'Web Security (XSS/CORS)', 
+      label: 'Web Security', 
       icon: <ShieldAlert size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Advanced'
     },
     { 
       id: ViewState.ACCESSIBILITY, 
-      label: 'Accessibility', 
+      label: 'Accessibility (a11y)', 
       icon: <Accessibility size={18} />,
-      group: 'Frontend Domain'
+      group: 'Frontend Advanced'
     },
 
-    // BACKEND DOMAIN
+    // BACKEND
     {
       id: ViewState.BACKEND_SYSTEM,
       label: 'System Architecture', 
       icon: <Server size={18} />,
-      group: 'Backend Domain'
+      group: 'Backend'
     },
     {
       id: ViewState.BACKEND_DB,
       label: 'Databases & Scaling',
       icon: <Database size={18} />,
-      group: 'Backend Domain'
+      group: 'Backend'
     },
     {
       id: ViewState.BACKEND_API,
       label: 'API Design',
       icon: <Globe size={18} />,
-      group: 'Backend Domain'
+      group: 'Backend'
     },
     {
       id: ViewState.BACKEND_SECURITY,
       label: 'Backend Security',
       icon: <Lock size={18} />,
-      group: 'Backend Domain'
-    },
-
-    // CS FUNDAMENTALS
-    {
-      id: ViewState.DSA_STRUCTURES,
-      label: 'Data Structures',
-      icon: <Binary size={18} />,
-      group: 'Computer Science'
-    },
-    {
-      id: ViewState.DSA_ALGORITHMS,
-      label: 'Algorithms (DSA)',
-      icon: <Cpu size={18} />,
-      group: 'Computer Science'
+      group: 'Backend'
     },
 
     // PRACTICE
@@ -131,7 +134,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
       id: ViewState.AI_COACH, 
       label: 'AI Interview Coach', 
       icon: <Bot size={18} />,
-      group: 'AI Assistant'
+      group: 'Practice'
     },
   ];
 
@@ -143,7 +146,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentView, onNavigate,
     return acc;
   }, {} as Record<string, NavItem[]>);
 
-  const groupOrder = ['Start', 'Frontend Domain', 'Backend Domain', 'Computer Science', 'AI Assistant'];
+  const groupOrder = ['Start', 'CS Fundamentals', 'Frontend Core', 'Frontend Advanced', 'Backend', 'Practice'];
 
   return (
     <>

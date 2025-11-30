@@ -3,6 +3,7 @@ import { ViewState } from './types';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { InterviewCoach } from './components/InterviewCoach';
+import { ErrorBoundary } from './components/shared/ErrorBoundary';
 import { BookOpen, Code2, Menu, Loader2 } from 'lucide-react';
 
 // --- ROUTE-BASED CODE SPLITTING ---
@@ -21,6 +22,8 @@ const SystemDesignDemo = lazyImport(() => import('./components/SystemDesignDemo'
 const PerformanceDemo = lazyImport(() => import('./components/PerformanceDemo'), 'PerformanceDemo');
 const ApiResilienceDemo = lazyImport(() => import('./components/ApiResilienceDemo'), 'ApiResilienceDemo');
 const BackendDemo = lazyImport(() => import('./components/BackendDemo'), 'BackendDemo');
+const DataStructuresDemo = lazyImport(() => import('./components/DataStructuresDemo'), 'DataStructuresDemo');
+const AlgorithmsDemo = lazyImport(() => import('./components/AlgorithmsDemo'), 'AlgorithmsDemo');
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
@@ -68,9 +71,9 @@ const App: React.FC = () => {
       case ViewState.BACKEND_SECURITY:
         return <BackendDemo isLearnMode={isLearnMode} initialTab="sql" />;
       case ViewState.DSA_STRUCTURES:
-        return <BackendDemo isLearnMode={isLearnMode} initialTab="dsa" />;
+        return <DataStructuresDemo isLearnMode={isLearnMode} />;
       case ViewState.DSA_ALGORITHMS:
-        return <BackendDemo isLearnMode={isLearnMode} initialTab="dsa" />;
+        return <AlgorithmsDemo isLearnMode={isLearnMode} />;
 
       case ViewState.AI_COACH:
         return <InterviewCoach />;
@@ -152,9 +155,11 @@ const App: React.FC = () => {
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth w-full">
           <div className="max-w-6xl mx-auto h-full pb-24">
-            <Suspense fallback={<PageLoader />}>
-              {renderContent()}
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<PageLoader />}>
+                {renderContent()}
+              </Suspense>
+            </ErrorBoundary>
           </div>
         </div>
       </main>

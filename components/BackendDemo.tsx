@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Server, Database, Globe, Lock, Binary, Cpu, ArrowRight, Check, X, Search, GitBranch, ShieldAlert, Key, RefreshCcw, Layers, Zap, Hash, BarChart2, MoveRight, Terminal, Clock, Shield, MoveHorizontal, ListOrdered, Repeat, Table2, Split, Network } from 'lucide-react';
+import { SortingVisualizer } from './visualizers/SortingVisualizer';
 
 // --- BLOG CONTENT COMPONENT ---
 const BackendGuide = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (t: string) => void }) => {
@@ -1626,7 +1627,7 @@ export const BackendDemo: React.FC<{ isLearnMode?: boolean, initialTab?: string 
           {id: 'rate', label: 'Rate Limiter'},
           {id: 'dsa', label: 'Graph BFS/DFS'},
           {id: 'algo', label: 'Binary Search'},
-          {id: 'sort', label: 'QuickSort'},
+          {id: 'sort', label: 'Sorting Algorithms'},
           {id: 'window', label: 'Sliding Window'},
           {id: 'pointers', label: 'Two Pointers'},
           {id: 'linked', label: 'Linked List Cycle'},
@@ -1654,7 +1655,7 @@ export const BackendDemo: React.FC<{ isLearnMode?: boolean, initialTab?: string 
       {activeTab === 'rate' && <RateLimitViz />}
       {activeTab === 'dsa' && <GraphViz />}
       {activeTab === 'algo' && <BinarySearchViz />}
-      {activeTab === 'sort' && <QuickSortViz />}
+      {activeTab === 'sort' && <SortingVisualizer />}
       {activeTab === 'window' && <SlidingWindowViz />}
       {activeTab === 'pointers' && <TwoPointersViz />}
       {activeTab === 'linked' && <LinkedListViz />}
